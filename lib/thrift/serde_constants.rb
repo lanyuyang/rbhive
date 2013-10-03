@@ -59,6 +59,10 @@ DATETIME_TYPE_NAME = %q"datetime"
 
 TIMESTAMP_TYPE_NAME = %q"timestamp"
 
+DECIMAL_TYPE_NAME = %q"decimal"
+
+BINARY_TYPE_NAME = %q"binary"
+
 LIST_TYPE_NAME = %q"array"
 
 MAP_TYPE_NAME = %q"map"
@@ -84,9 +88,12 @@ PrimitiveTypes = Set.new([
   %q"date",
   %q"datetime",
   %q"timestamp",
+  %q"decimal",
+  %q"binary",
 ])
 
 CollectionTypes = Set.new([
   %q"array",
   %q"map",
 ])
+

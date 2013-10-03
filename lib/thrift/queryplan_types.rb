@@ -64,8 +64,10 @@ module Hive
       MAPREDLOCAL = 7
       MOVE = 8
       STATS = 9
-      VALUE_MAP = {0 => "CONDITIONAL", 1 => "COPY", 2 => "DDL", 3 => "MAPRED", 4 => "EXPLAIN", 5 => "FETCH", 6 => "FUNC", 7 => "MAPREDLOCAL", 8 => "MOVE", 9 => "STATS"}
-      VALID_VALUES = Set.new([CONDITIONAL, COPY, DDL, MAPRED, EXPLAIN, FETCH, FUNC, MAPREDLOCAL, MOVE, STATS]).freeze
+      DEPENDENCY_COLLECTION = 10
+      COLUMNSTATS = 11
+      VALUE_MAP = {0 => "CONDITIONAL", 1 => "COPY", 2 => "DDL", 3 => "MAPRED", 4 => "EXPLAIN", 5 => "FETCH", 6 => "FUNC", 7 => "MAPREDLOCAL", 8 => "MOVE", 9 => "STATS", 10 => "DEPENDENCY_COLLECTION", 11 => "COLUMNSTATS"}
+      VALID_VALUES = Set.new([CONDITIONAL, COPY, DDL, MAPRED, EXPLAIN, FETCH, FUNC, MAPREDLOCAL, MOVE, STATS, DEPENDENCY_COLLECTION, COLUMNSTATS]).freeze
     end
 
     class Adjacency
@@ -80,7 +82,9 @@ module Hive
         ADJACENCYTYPE => {:type => ::Thrift::Types::I32, :name => 'adjacencyType', :enum_class => ::Hive::Thrift::AdjacencyType}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
         unless @adjacencyType.nil? || ::Hive::Thrift::AdjacencyType::VALID_VALUES.include?(@adjacencyType)
@@ -103,7 +107,9 @@ module Hive
         ADJACENCYLIST => {:type => ::Thrift::Types::LIST, :name => 'adjacencyList', :element => {:type => ::Thrift::Types::STRUCT, :class => ::Hive::Thrift::Adjacency}}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
         unless @nodeType.nil? || ::Hive::Thrift::NodeType::VALID_VALUES.include?(@nodeType)
@@ -132,7 +138,9 @@ module Hive
         STARTED => {:type => ::Thrift::Types::BOOL, :name => 'started'}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
         unless @operatorType.nil? || ::Hive::Thrift::OperatorType::VALID_VALUES.include?(@operatorType)
@@ -165,7 +173,9 @@ module Hive
         STARTED => {:type => ::Thrift::Types::BOOL, :name => 'started'}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
         unless @taskType.nil? || ::Hive::Thrift::TaskType::VALID_VALUES.include?(@taskType)
@@ -196,7 +206,9 @@ module Hive
         STARTED => {:type => ::Thrift::Types::BOOL, :name => 'started'}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
         unless @stageType.nil? || ::Hive::Thrift::StageType::VALID_VALUES.include?(@stageType)
@@ -229,7 +241,9 @@ module Hive
         STARTED => {:type => ::Thrift::Types::BOOL, :name => 'started'}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
       end
@@ -249,13 +263,14 @@ module Hive
         STARTED => {:type => ::Thrift::Types::BOOL, :name => 'started'}
       }
 
-      def struct_fields; FIELDS; end
+      def struct_fields;
+        FIELDS;
+      end
 
       def validate
       end
 
       ::Thrift::Struct.generate_accessors self
     end
-
   end
 end

@@ -268,6 +268,51 @@ module Hive2
           raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'GetLog failed: unknown result')
         end
 
+        def GetDelegationToken(req)
+          send_GetDelegationToken(req)
+          return recv_GetDelegationToken()
+        end
+
+        def send_GetDelegationToken(req)
+          send_message('GetDelegationToken', GetDelegationToken_args, :req => req)
+        end
+
+        def recv_GetDelegationToken()
+          result = receive_message(GetDelegationToken_result)
+          return result.success unless result.success.nil?
+          raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'GetDelegationToken failed: unknown result')
+        end
+
+        def CancelDelegationToken(req)
+          send_CancelDelegationToken(req)
+          return recv_CancelDelegationToken()
+        end
+
+        def send_CancelDelegationToken(req)
+          send_message('CancelDelegationToken', CancelDelegationToken_args, :req => req)
+        end
+
+        def recv_CancelDelegationToken()
+          result = receive_message(CancelDelegationToken_result)
+          return result.success unless result.success.nil?
+          raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'CancelDelegationToken failed: unknown result')
+        end
+
+        def RenewDelegationToken(req)
+          send_RenewDelegationToken(req)
+          return recv_RenewDelegationToken()
+        end
+
+        def send_RenewDelegationToken(req)
+          send_message('RenewDelegationToken', RenewDelegationToken_args, :req => req)
+        end
+
+        def recv_RenewDelegationToken()
+          result = receive_message(RenewDelegationToken_result)
+          return result.success unless result.success.nil?
+          raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'RenewDelegationToken failed: unknown result')
+        end
+
       end
 
       class Processor
@@ -392,6 +437,27 @@ module Hive2
           write_result(result, oprot, 'GetLog', seqid)
         end
 
+        def process_GetDelegationToken(seqid, iprot, oprot)
+          args = read_args(iprot, GetDelegationToken_args)
+          result = GetDelegationToken_result.new()
+          result.success = @handler.GetDelegationToken(args.req)
+          write_result(result, oprot, 'GetDelegationToken', seqid)
+        end
+
+        def process_CancelDelegationToken(seqid, iprot, oprot)
+          args = read_args(iprot, CancelDelegationToken_args)
+          result = CancelDelegationToken_result.new()
+          result.success = @handler.CancelDelegationToken(args.req)
+          write_result(result, oprot, 'CancelDelegationToken', seqid)
+        end
+
+        def process_RenewDelegationToken(seqid, iprot, oprot)
+          args = read_args(iprot, RenewDelegationToken_args)
+          result = RenewDelegationToken_result.new()
+          result.success = @handler.RenewDelegationToken(args.req)
+          write_result(result, oprot, 'RenewDelegationToken', seqid)
+        end
+
       end
 
       # HELPER FUNCTIONS AND STRUCTURES
@@ -401,10 +467,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TOpenSessionReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TOpenSessionReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -417,10 +485,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TOpenSessionResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TOpenSessionResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -433,10 +503,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCloseSessionReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCloseSessionReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -449,10 +521,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCloseSessionResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCloseSessionResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -465,10 +539,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetInfoReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetInfoReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -481,10 +557,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetInfoResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetInfoResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -497,10 +575,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TExecuteStatementReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TExecuteStatementReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -513,10 +593,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TExecuteStatementResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TExecuteStatementResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -529,10 +611,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetTypeInfoReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetTypeInfoReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -545,10 +629,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetTypeInfoResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetTypeInfoResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -561,10 +647,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetCatalogsReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetCatalogsReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -577,10 +665,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetCatalogsResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetCatalogsResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -593,10 +683,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetSchemasReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetSchemasReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -609,10 +701,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetSchemasResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetSchemasResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -625,10 +719,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetTablesReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetTablesReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -641,10 +737,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetTablesResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetTablesResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -657,10 +755,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetTableTypesReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetTableTypesReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -673,10 +773,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetTableTypesResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetTableTypesResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -689,10 +791,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetColumnsReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetColumnsReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -705,10 +809,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetColumnsResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetColumnsResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -721,10 +827,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetFunctionsReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetFunctionsReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -737,10 +845,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetFunctionsResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetFunctionsResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -753,10 +863,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetOperationStatusReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetOperationStatusReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -769,10 +881,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetOperationStatusResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetOperationStatusResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -785,10 +899,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCancelOperationReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCancelOperationReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -801,10 +917,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCancelOperationResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCancelOperationResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -817,10 +935,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCloseOperationReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCloseOperationReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -833,10 +953,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCloseOperationResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCloseOperationResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -849,10 +971,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetResultSetMetadataReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetResultSetMetadataReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -865,10 +989,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetResultSetMetadataResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetResultSetMetadataResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -881,10 +1007,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TFetchResultsReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TFetchResultsReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -897,10 +1025,12 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TFetchResultsResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TFetchResultsResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -913,10 +1043,12 @@ module Hive2
         REQ = 1
 
         FIELDS = {
-          REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetLogReq}
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetLogReq}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -929,10 +1061,120 @@ module Hive2
         SUCCESS = 0
 
         FIELDS = {
-          SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetLogResp}
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetLogResp}
         }
 
-        def struct_fields; FIELDS; end
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class GetDelegationToken_args
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+        REQ = 1
+
+        FIELDS = {
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TGetDelegationTokenReq}
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class GetDelegationToken_result
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+        SUCCESS = 0
+
+        FIELDS = {
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TGetDelegationTokenResp}
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class CancelDelegationToken_args
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+        REQ = 1
+
+        FIELDS = {
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TCancelDelegationTokenReq}
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class CancelDelegationToken_result
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+        SUCCESS = 0
+
+        FIELDS = {
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TCancelDelegationTokenResp}
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class RenewDelegationToken_args
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+        REQ = 1
+
+        FIELDS = {
+            REQ => {:type => ::Thrift::Types::STRUCT, :name => 'req', :class => ::Hive2::Thrift::TRenewDelegationTokenReq}
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class RenewDelegationToken_result
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+        SUCCESS = 0
+
+        FIELDS = {
+            SUCCESS => {:type => ::Thrift::Types::STRUCT, :name => 'success', :class => ::Hive2::Thrift::TRenewDelegationTokenResp}
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
 
         def validate
         end
@@ -941,6 +1183,6 @@ module Hive2
       end
 
     end
-
   end
 end
+

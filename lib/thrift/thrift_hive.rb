@@ -141,6 +141,20 @@ module Hive
           raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'getQueryPlan failed: unknown result')
         end
 
+        def clean()
+          send_clean()
+          recv_clean()
+        end
+
+        def send_clean()
+          send_message('clean', Clean_args)
+        end
+
+        def recv_clean()
+          result = receive_message(Clean_result)
+          return
+        end
+
       end
 
       class Processor < ::ThriftHiveMetastore::Processor 
@@ -232,6 +246,13 @@ module Hive
             result.ex = ex
           end
           write_result(result, oprot, 'getQueryPlan', seqid)
+        end
+
+        def process_clean(seqid, iprot, oprot)
+          args = read_args(iprot, Clean_args)
+          result = Clean_result.new()
+          @handler.clean()
+          write_result(result, oprot, 'clean', seqid)
         end
 
       end
@@ -502,7 +523,40 @@ module Hive
         ::Thrift::Struct.generate_accessors self
       end
 
-    end
+      class Clean_args
+        include ::Thrift::Struct, ::Thrift::Struct_Union
 
+        FIELDS = {
+
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+      class Clean_result
+        include ::Thrift::Struct, ::Thrift::Struct_Union
+
+        FIELDS = {
+
+        }
+
+        def struct_fields;
+          FIELDS;
+        end
+
+        def validate
+        end
+
+        ::Thrift::Struct.generate_accessors self
+      end
+
+    end
   end
 end
